@@ -1,0 +1,16 @@
+REST API -JSON
+
+GET /users - List all users
+
+GET /users/1 - Get the user with ID 1.
+GET /users/2 - Get the user with ID 2.
+
+Dynamic paramiters
+GET /api/users/:id
+:id -> variable | Dynamic
+
+POST /users -Create new user
+
+PATCH /users/ID - Edit the user with ID.
+
+DELETE /users/ID - Edit the user with Delete.
