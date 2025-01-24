@@ -1,10 +1,13 @@
 const express = require("express");
-const users = require("../MOCK_DATA.json");
+const users = require("./MOCK_DATA.json");
+const fs = require("fs");
 const app = express();
 const PORT = 8000;
 
-// routes
+//middleware - plugin
+app.use(express.urlencoded({ extended: false }));
 
+// routes
 app.get("/users", (req, res) => {
   // const html = `
   // <ul>${users.map((user) => `<li>${user.first_name}</li>`</ul>
@@ -27,23 +30,22 @@ app
     const user = users.find((user) => user.id === id);
     return res.json(user);
   })
-  // .post((req, res) => {
-  //   //TODO: Edit with id.
-  //   return res.json("status pending.");
-  // })
   .patch((req, res) => {
     //TODO: Edit with id.
     return res.json("status pending.");
-  });
-  .delete((req,res)=>{
-    //TODO: Delete user with id.
-  return res.json("status pending.");
   })
-
+  .delete((req, res) => {
+    //TODO: Delete user with id.
+    return res.json("status pending.");
+  });
 
 app.post("/api/users", (req, res) => {
   //TODO: Edit with id.
-  return res.json("status pending.");
+  const body = req.body;
+  users.push({ ...body, id: users.length + 1 });
+  fs.writeFile("./MOCK_DATA.json", JSON.stringify(users), (err, data) => {
+    return res.json({ Status: "Success", id: users.length });
+  });
 });
 
 app.listen(PORT, () => {
